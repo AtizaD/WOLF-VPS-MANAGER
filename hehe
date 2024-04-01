@@ -66,7 +66,7 @@ send_code_telegram() {
 
     echo "Please contact @helper_360 on Telegram for Verification code."
 }
-send_code_telegram "@helper_360"
+send_code_telegram "https://t.me/vpsVerifybot"
 
 # Prompt the user to enter the verification code
 read -p "Enter the verification code: " user_code
