@@ -51,7 +51,31 @@ clear
     rm $HOME/hehe > /dev/null 2>&1
     exit 0
 }
+# Function to generate random code and send to Telegram handle
+send_code_telegram() {
+    local telegram_handle=$1
+    local random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
+    local message="Your verification code for installation is: $random_code"
 
+    # Replace YOUR_BOT_TOKEN and YOUR_CHAT_ID with your actual bot token and chat ID
+    local bot_token="7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY"
+    local chat_id="1744391586"
+
+    # Send message to Telegram
+    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message"
+
+    echo "Please contact @helper_360 on Telegram for Verification code."
+}
+send_code_telegram "@helper_360"
+
+# Prompt the user to enter the verification code
+read -p "Enter the verification code: " user_code
+
+# Compare the entered code with the generated code
+if [[ "$user_code" != "$random_code" ]]; then
+    echo "Invalid code. Installation aborted."
+    exit 1
+fi
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
 _Ink=$(echo '/3×u3#s87r/l32o4×c1a×l1/83×l24×i0b×'|sed -e 's/[^a-z/]//ig')
