@@ -42,21 +42,22 @@ verif_key() {
         exit 1
     }
 }
+#!/bin/bash
 
 # Function to generate random code and send to Telegram handle
 send_code_telegram() {
     local telegram_handle=$1
-    local random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
-    local message="Your verification code for installation is: $random_code"
+    random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
+    message="Your verification code for installation is: $random_code"
 
     # Replace YOUR_BOT_TOKEN and YOUR_CHAT_ID with your actual bot token and chat ID
     bot_token="7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY"
     chat_id="1744391586"
 
-    # Send message to Telegram without displaying the response
+    # Send message to Telegram
     curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
 
-    echo "A verification code has been sent to your Telegram handle."
+    echo "Contac @helper_360 on telegram for verification."
 }
 
 clear
