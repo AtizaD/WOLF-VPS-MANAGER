@@ -1537,10 +1537,10 @@ exit 0' >$RCLOCAL
 					sleep 1
 					screen -dmS ws python /etc/VPSManager/wsproxy.py $porta
 					[[ $(grep -wc "wsproxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python3 /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/wsproxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python3 /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
