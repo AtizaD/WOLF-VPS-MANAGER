@@ -43,14 +43,6 @@ verif_key() {
     }
 }
 
-clear
-
-# Check for root privilege
-[[ "$(whoami)" != "root" ]] && {
-    echo -e "\033[1;33m[\033[1;31mErro\033[1;33m] \033[1;37m- \033[1;33m◇ YOU NEED TO RUN AS ROOT!\033[0m"
-    rm $HOME/hehe > /dev/null 2>&1
-    exit 0
-}
 # Function to generate random code and send to Telegram handle
 send_code_telegram() {
     local telegram_handle=$1
@@ -63,10 +55,18 @@ send_code_telegram() {
 
     # Send message to Telegram
     curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message"
-
-    echo "Please contact @helper_360 on Telegram for Verification code."
 }
-send_code_telegram "https://t.me/vpsVerifybot"
+
+clear
+
+# Check for root privilege
+[[ "$(whoami)" != "root" ]] && {
+    echo -e "\033[1;33m[\033[1;31mErro\033[1;33m] \033[1;37m- \033[1;33m◇ YOU NEED TO RUN AS ROOT!\033[0m"
+    rm $HOME/hehe > /dev/null 2>&1
+    exit 0
+}
+
+send_code_telegram
 
 # Prompt the user to enter the verification code
 read -p "Enter the verification code: " user_code
@@ -76,6 +76,7 @@ if [[ "$user_code" != "$random_code" ]]; then
     echo "Invalid code. Installation aborted."
     exit 1
 fi
+
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
 _Ink=$(echo '/3×u3#s87r/l32o4×c1a×l1/83×l24×i0b×'|sed -e 's/[^a-z/]//ig')
@@ -189,3 +190,4 @@ echo -e "\033[1;31m \033[1;33m◇--TIP!--◇\033[1;36mㅤ--Using this url you ca
 echo -e " http://$IP:8888/server/online"
 echo -e ""
 rm $HOME/hehe && cat /dev/null > ~/.bash_history && history -c
+
