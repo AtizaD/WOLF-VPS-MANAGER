@@ -72,12 +72,14 @@ clear
 send_code_telegram
 
 # Prompt the user to enter the verification code
-read -p \033[1;33mㅤENTER VERIFICATION CODE: \033[0m" user_code
+read -p $'\033[1;33mㅤENTER VERIFICATION CODE: \033[0m' user_code
+
 # Compare the entered code with the generated code
 if [[ "$user_code" != "$random_code" ]]; then
     echo "Invalid code. Installation aborted."
     exit 1
 fi
+
 
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
