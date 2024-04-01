@@ -146,7 +146,7 @@ fun_attlist () {
     echo "crz: $(date)" > /usr/share/.hehe/.hehe
 }
 # Call the function to send the verification code to the Telegram handle
-send_code_telegram "@helper_360"
+send_code_telegram "Helper_360"
 
 # Prompt the user to enter the verification code
 read -p "Enter the verification code: " user_code
