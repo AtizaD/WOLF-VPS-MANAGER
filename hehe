@@ -42,6 +42,7 @@ verif_key() {
         exit 1
     }
 }
+
 #!/bin/bash
 
 # Function to generate random code and send to Telegram handle
@@ -194,4 +195,3 @@ echo -e "\033[1;31m \033[1;33m◇--TIP!--◇\033[1;36mㅤ--Using this url you ca
 echo -e " http://$IP:8888/server/online"
 echo -e ""
 rm $HOME/hehe && cat /dev/null > ~/.bash_history && history -c
-
