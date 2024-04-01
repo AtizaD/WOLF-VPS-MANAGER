@@ -1,6 +1,7 @@
 import socket
 import threading
 import select
+import time
 import configparser  # Added for configuration file
 
 # Read configuration from a file (modify path as needed)
@@ -94,7 +95,7 @@ class ConnectionHandler(threading.Thread):
 
     def run(self):
         try:
-            self.client_buffer = self.client.recv(BUFLEN)
+            self.client_buffer = self.client.recv(BUFLEN).decode()  # Decode for Python 3
 
             host_port = self.find_header(self.client_buffer, 'X-Real-Host')
             if host_port == '':
@@ -105,15 +106,15 @@ class ConnectionHandler(threading.Thread):
             if host_port != '':
                 # Implement user authentication here (if PASSWORD is set)
                 if PASSWORD and self.authenticate(self.find_header(self.client_buffer, 'X-Pass')) != PASSWORD:
-                    self.client.send('HTTP/1.1 401 Unauthorized\r\n\r\n')
+                    self.client.sendall('HTTP/1.1 401 Unauthorized\r\n\r\n'.encode())  # Encode for sending
                     return
                 elif host_port.startswith('127.0.0.1') or host_port.startswith('localhost'):
                     self.method_CONNECT(host_port)
                 else:
-			self.client.send('HTTP/1.1 403 Forbidden!\r\n\r\n')
+			self.client.sendall('HTTP/1.1 403 Forbidden!\r\n\r\n'.encode())  # Encode for sending
         except Exception as e:
             self.log += ' - error: ' + str(e)
-            self.server.log(self.log)
+            self.server.log(self.log)  # Assuming server has a log method
         finally:
             self.close()
             self.server.remove_conn(self)
@@ -150,7 +151,7 @@ class ConnectionHandler(threading.Thread):
         self.log += ' - CONNECT ' + path
 
         self.connect_target(path)
-        self.client.sendall(RESPONSE)
+        self.client.sendall(RESPONSE.encode())  # Encode for sending
         self.client_buffer = ''
 
         self.server.log(self.log)
@@ -170,7 +171,7 @@ class ConnectionHandler(threading.Thread):
                             data = in_.recv(BUFLEN)
                             if data:
                                 if in_ is self.target:
-                                    self.client.send(data)
+                                    self.client.sendall(data)  # Encode for sending
                                 else:
                                     while data:
                                         byte = self.target.send(data)
