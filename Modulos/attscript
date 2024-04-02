@@ -62,7 +62,7 @@ fun_atts () {
 
   [[ -e /tmp/att ]] && rm /tmp/att
 
-	wget -c -P /home https://raw.githubusercontent.com/januda-ui/DRAGON-VPS-MANAGER/main/Sistema/versao
+	wget -c -P /home https://raw.githubusercontent.com/AtizaD/WOLF-VPS-MANAGER/main/Sistema/versao
 
 	[[ -f "/home/versao" ]] && mv /home/versao /tmp/att
 
@@ -70,7 +70,7 @@ fun_atts () {
 
 } > /dev/null 2>&1
 
-echo -e "ㅤ🐉ㅤDRAGON VPS MANAGERㅤ🐉ㅤ" | figlet
+echo -e "ㅤ🐉ㅤWOLF VPS MANAGERㅤ🐉ㅤ" | figlet
 
 echo " "
 
@@ -126,7 +126,7 @@ vrs2=$(sed -n '1 p' /tmp/att | sed -e 's/[^0-9]//ig')
 
     sleep 3
 
-    wget https://raw.githubusercontent.com/januda-ui/DRAGON-VPS-MANAGER/main/hehe > /dev/null 2>&1
+    wget https://raw.githubusercontent.com/AtizaD/WOLF-VPS-MANAGER/main/hehe > /dev/null 2>&1
 
     chmod +x hehe
 
