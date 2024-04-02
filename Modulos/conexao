@@ -1342,7 +1342,7 @@ exit 0' >$RCLOCAL
 					if sestatus | grep "Current mode" | grep -qs "enforcing"; then
 						if [[ "$porta" != '1194' || "$PROTOCOL" = 'tcp' ]]; then
 							if ! hash semanage 2>/dev/null; then
-								yum install policycoreutils-python3 -y
+								yum install policycoreutils-python -y
 							fi
 							semanage port -a -t openvpn_port_t -p $PROTOCOL $porta
 						fi
@@ -1480,12 +1480,12 @@ exit 0' >$RCLOCAL
 				verif_ptrs $porta
 				fun_inisocks() {
 					sleep 1
-					screen -dmS proxy python3 /etc/VPSManager/proxy.py $porta
+					screen -dmS proxy python /etc/VPSManager/proxy.py $porta
 					[[ $(grep -wc "proxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python3 /etc/VPSManager/proxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/VPSManager/proxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/proxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python3 /etc/VPSManager/proxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'proxy' -X quit;  screen -dmS proxy python /etc/VPSManager/proxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1535,12 +1535,12 @@ exit 0' >$RCLOCAL
 				verif_ptrs $porta
 				fun_iniwssocks() {
 					sleep 1
-					screen -dmS ws python3 /etc/VPSManager/wsproxy.py $porta
+					screen -dmS ws python /etc/VPSManager/wsproxy.py $porta
 					[[ $(grep -wc "wsproxy.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python3 /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/wsproxy.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python3 /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'ws' -X quit;  screen -dmS ws python /etc/VPSManager/wsproxy.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1595,12 +1595,12 @@ exit 0' >$RCLOCAL
 						sed -i "s/$listoldop/$listopen/" /etc/VPSManager/open.py
 					}
 					sleep 1
-					screen -dmS openpy python3 /etc/VPSManager/open.py $porta
+					screen -dmS openpy python /etc/VPSManager/open.py $porta
 					[[ $(grep -wc "open.py" /etc/autostart) = '0' ]] && {
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python3 /etc/VPSManager/open.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/VPSManager/open.py $porta; }" >>/etc/autostart
 					} || {
 						sed -i '/open.py/d' /etc/autostart
-						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python3 /etc/VPSManager/open.py $porta; }" >>/etc/autostart
+						echo -e "netstat -tlpn | grep -w $porta > /dev/null || {  screen -r -S 'openpy' -X quit;  screen -dmS openpy python /etc/VPSManager/open.py $porta; }" >>/etc/autostart
 					}
 				}
 				echo ""
@@ -1635,7 +1635,7 @@ exit 0' >$RCLOCAL
 				echo ""
 				abrirptsks() {
 					sleep 1
-					screen -dmS proxy python3 /etc/VPSManager/proxy.py $porta
+					screen -dmS proxy python /etc/VPSManager/proxy.py $porta
 					sleep 1
 				}
 				fun_bar 'abrirptsks'
@@ -1726,7 +1726,7 @@ exit 0' >$RCLOCAL
 						screen -wipe >/dev/null
 						_Ptsks="$(cat /tmp/Pt_sks)"
 						sleep 1
-						screen -dmS proxy python3 /etc/VPSManager/proxy.py $_Ptsks
+						screen -dmS proxy python /etc/VPSManager/proxy.py $_Ptsks
 						rm /tmp/Pt_sks
 					fi
                 }
@@ -1821,7 +1821,7 @@ exit 0' >$RCLOCAL
 						screen -wipe >/dev/null
 						_Ptwssks="$(cat /tmp/Pt_wssks)"
 						sleep 1
-						screen -dmS ws python3 /etc/VPSManager/wsproxy.py $_Ptwssks
+						screen -dmS ws python /etc/VPSManager/wsproxy.py $_Ptwssks
 						rm /tmp/Pt_wssks
 					fi
 				}
