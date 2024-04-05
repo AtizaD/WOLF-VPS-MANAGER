@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
-echo -e "                              \033[1;31mByㅤ🐉ㅤDRAGON VPS MANAGERㅤ🐉ㅤ\033[1;36m"
-echo "   ㅤ🐉ㅤDRAGON VPS MANAGERㅤ🐉ㅤ" | figlet
+echo -e "                              \033[1;31mByㅤ🌀WOLF VPS MANAGER🌀ㅤ\033[1;36m"
+echo "   ㅤ🌀WOLF VPS MANAGER🌀ㅤ" | figlet
 echo -e "\033[1;32m      MENU INFORMATION AND OPTIONS \033[0m\n\n"
 echo -e " \033[1;37m[\033[1;31m01\033[1;37m] - \033[1;33m Create ssh user"
 echo -e " \033[1;37m[\033[1;31m02\033[1;37m] - \033[1;33m Create test ssh user"
@@ -29,7 +29,7 @@ echo -e " \033[1;37m[\033[1;31m23\033[1;37m] - \033[1;33m Restart services 'squi
 echo -e " \033[1;37m[\033[1;31m24\033[1;37m] - \033[1;33m Option to manage vps by telegram \033[1;32mNEW"
 echo -e " \033[1;37m[\033[1;31m25\033[1;37m] - \033[1;33m Displays vps information"
 echo -e " \033[1;37m[\033[1;31m26\033[1;37m] - \033[1;33m Change vps password"
-echo -e " \033[1;37m[\033[1;31m27\033[1;37m] - \033[1;33m Update theㅤ🐉ㅤDRAGON VPS MANAGERㅤ🐉ㅤscript"
-echo -e " \033[1;37m[\033[1;31m28\033[1;37m] - \033[1;33m Remove theㅤ🐉ㅤDRAGON VPS MANAGERㅤ🐉ㅤscript"
+echo -e " \033[1;37m[\033[1;31m27\033[1;37m] - \033[1;33m Update theㅤ🌀WOLF VPS MANAGER🌀ㅤscript"
+echo -e " \033[1;37m[\033[1;31m28\033[1;37m] - \033[1;33m Remove theㅤ🌀WOLF VPS MANAGER🌀ㅤscript"
 echo -e " \033[1;37m[\033[1;31m29\033[1;37m] - \033[1;33m Display information about the script"
 echo -e " \033[1;37m[\033[1;31m30\033[1;37m] - \033[1;33m Return to previous menu\033[0m"
