@@ -68,11 +68,11 @@ send_code_telegram() {
         echo -e "\033[1;36m=============================================================\033[0m"
         echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
         echo -e "\033[1;36m==============================================================\033[0m"
-        echo -e "@\033[1;32m              @wolfbekk            \033[0m on Telegram"
-        echo -e "@\033[1;32m              @helper_360           \033[0m on Telegram"
-
-    
-}
+        echo ""
+        echo -e "\033[1;32m              @wolfbekk\033[0m on Telegram"
+        echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
+        echo "" 
+        }
 
 clear
 
