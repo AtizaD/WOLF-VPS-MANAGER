@@ -65,7 +65,7 @@ send_code_telegram() {
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
     echo -e "\033[1;31m CONTACT THESE ADMINS FOR VERIFCATION CODE \033[0m"
-    echo "Contact these admins for verification code"
+    echo "@wolfbekk on telegram"
     echo "@helper_360 on telegram"
     
 }
@@ -98,7 +98,7 @@ _1nk=$(echo '/3×u3#s×87r/83×l2×4×i0b×'|sed -e 's/[^a-z/]//ig')
 
 # Welcome message
 echo -e "\033[1;31m\033[0m"
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "◇─────────ㅤ🐉ㅤWelcome To WOLF VPS MANAGERㅤ🐉ㅤ─────────◇" ; tput sgr0
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%40s%s%-12s\n' "◇─────────ㅤ🌀WELCOME TO WOLF VPS MANAGER🌀ㅤ─────────◇" ; tput sgr0
 echo ""
 echo -e "\033[1;33mㅤTHIS SCRIPT CONTAINS THE FOLLOWING!!\033[0m"
 echo ""
@@ -107,7 +107,7 @@ echo ""
 echo -e "\033[1;33m◇  \033[1;32mNETWORK, SYSTEM AND USER MANAGEMENT.\033[0m"
 echo -e "\033[1;33m◇  \033[1;32mEASY INTERFACE FOR BEGINNERS.\033[0m"
 echo ""
-echo -e "\033[1;31m◇──────────────ㅤ🐉ㅤWOLF VPS MANAGERㅤ🐉ㅤ──────────────◇\033[0m"
+echo -e "\033[1;31m◇──────────────ㅤ🌀 WOLF VPS MANAGER 🌀ㅤ──────────────◇\033[0m"
 echo ""
 
 # Prompt to continue
