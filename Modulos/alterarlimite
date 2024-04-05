@@ -1,5 +1,5 @@
 #!/bin/bash
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%20s%s\n' "ㅤ🐉ㅤChange limit on simultaneous connectionsㅤ🐉ㅤ" ; tput sgr0
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%20s%s\n' "ㅤ🌀 ㅤChange limit on simultaneous connectionsㅤ🌀ㅤ" ; tput sgr0
 database="/root/usuarios.db"
 if [ ! -f "$database" ]; then
 	tput setaf 7 ; tput setab 1 ; tput bold ; echo "" ; echo "File $database not found!" ; echo "" ; tput sgr0
