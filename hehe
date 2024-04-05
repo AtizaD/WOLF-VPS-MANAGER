@@ -62,11 +62,12 @@ send_code_telegram() {
         chat_id="${chat_ids[i]}"
 
         # Send message to Telegram
-        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message"
+        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
-
-    echo "A verification code has been sent to your Telegram handle."
-    echo "Please check your Telegram messages and enter the code to proceed with the installation."
+    echo -e "\033[1;31m CONTACT THESE ADMINS FOR VERIFCATION CODE \033[0m"
+    echo "Contact these admins for verification code"
+    echo "@helper_360 on telegram"
+    
 }
 
 clear
