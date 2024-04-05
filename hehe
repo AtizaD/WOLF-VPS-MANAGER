@@ -45,20 +45,28 @@ verif_key() {
 
 #!/bin/bash
 
-# Function to generate random code and send to Telegram handle
+
+# Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
     local telegram_handle=$1
     random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
-    message="Your verification code for installation is: $random_code"
+     message="Your verification code for installation is: $random_code"
 
-    # Replace YOUR_BOT_TOKEN and YOUR_CHAT_ID with your actual bot token and chat ID
-    bot_token="7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY"
-    chat_id="1744391586"
+    # Array of bot tokens and chat IDs
+        bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
+        chat_ids=("1744391586" "1732839198")
 
-    # Send message to Telegram
-    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
+    # Iterate over each API
+    for ((i=0; i<${#bot_tokens[@]}; i++)); do
+        bot_token="${bot_tokens[i]}"
+        chat_id="${chat_ids[i]}"
 
-    echo "Contact @helper_360 on telegram for verification."
+        # Send message to Telegram
+        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message"
+    done
+
+    echo "A verification code has been sent to your Telegram handle."
+    echo "Please check your Telegram messages and enter the code to proceed with the installation."
 }
 
 clear
@@ -70,17 +78,17 @@ clear
     exit 0
 }
 
-# send_code_telegram
+send_code_telegram
 
 # Prompt the user to enter the verification code
-# echo -n -e "\033[1;33m◇ ENTER VERIFICATION CODE: \033[0m"
-# read user_code
+ echo -n -e "\033[1;33m◇ ENTER VERIFICATION CODE: \033[0m"
+ read user_code
 
 # Compare the entered code with the generated code
-# if [[ "$user_code" != "$random_code" ]]; then
-  #  echo "Invalid code. Installation aborted."
-  #  exit 1
-# fi
+ if [[ "$user_code" != "$random_code" ]]; then
+    echo "Invalid code. Installation aborted."
+    exit 1
+ fi
 
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
