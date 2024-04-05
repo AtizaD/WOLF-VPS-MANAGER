@@ -50,7 +50,7 @@ verif_key() {
 send_code_telegram() {
     local telegram_handle=$1
     random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
-     message="Your verification code for installation is: $random_code"
+     message="Your verification code for $(hostname -I) is: $random_code"
 
     # Array of bot tokens and chat IDs
         bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
