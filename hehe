@@ -65,11 +65,11 @@ send_code_telegram() {
         # Send message to Telegram
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
-        echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        echo -e "\033[1;36m=============================================================\033[0m"
         echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
-        echo -e "\033[1;36m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
-        echo -e "@\033[1;32mwolfbekk\033[0m on Telegram"
-        echo -e "@\033[1;32mhelper_360\033[0m on Telegram"
+        echo -e "\033[1;36m==============================================================\033[0m"
+        echo -e "@\033[1;32m              @wolfbekk            \033[0m on Telegram"
+        echo -e "@\033[1;32m              @helper_360           \033[0m on Telegram"
 
     
 }
