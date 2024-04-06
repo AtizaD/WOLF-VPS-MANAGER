@@ -127,15 +127,20 @@ clear
 }
 
 # Call the function to send the verification code
+# Call the function to send the verification code
 send_code_telegram
 
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m ENTER yVERIFICATION CODE: \033[0m"
+echo -n -e "\033[1;33m ENTER VyERIFICATION CODE: \033[0m"
 read user_code
 
 # Retrieve the last sent code from the storage file
 last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/root/vcheck/storage.txt")
 echo "Debug: Last Sent Code: $last_sent"
+
+# Print the contents of the storage file for debugging
+echo "Debug: Contents of storage file:"
+cat "/root/vcheck/storage.txt"
 
 # Compare the entered code with the last sent code
 if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
@@ -146,6 +151,7 @@ if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
 else
     rm -rf /root/vcheck
 fi
+
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
 _Ink=$(echo '/3×u3#s87r/l32o4×c1a×l1/83×l24×i0b×'|sed -e 's/[^a-z/]//ig')
