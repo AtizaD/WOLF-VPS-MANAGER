@@ -131,12 +131,16 @@ clear
 send_code_telegram
 
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m ENTER VyERIFICATION CODE: \033[0m"
+echo -n -e "\033[1;33m ENTER VhERIFICATION CODE: \033[0m"
 read user_code
 
 # Retrieve the last sent code from the storage file
 last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/root/vcheck/storage.txt")
 echo "Debug: Last Sent Code: $last_sent"
+echo "IP Address used for comparison: $ip_address"
+echo "Contents of storage file:"
+awk -v ip="$ip_address" '$1 == ip {print}' "$storage_file"
+
 
 # Print the contents of the storage file for debugging
 echo "Debug: Contents of storage file:"
