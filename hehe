@@ -136,7 +136,10 @@ if [[ -z "$user_code" || "$user_code" != "$random_code" ]]; then
     echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
     echo ""
     exit 1
+else
+    rm -rf /root/vcheck
 fi
+
 
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
