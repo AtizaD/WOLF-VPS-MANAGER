@@ -1,6 +1,4 @@
 #!/bin/bash
-# Associative array to store sent codes with IP addresses and timestamps
-declare -A sent_codes
 # Function to display a progress bar
 fun_bar() {
     comando[0]="$1"
@@ -99,7 +97,7 @@ send_code_telegram() {
     fi
 
     # Generate random 6-digit code
-    local random_code=$(shuf -i 100000-999999 -n 1)
+        random_code=$(shuf -i 100000-999999 -n 1)
 
     # Store the code along with the IP address and timestamp
     echo "$ip_address $random_code $current_time" > "$storage_file"
