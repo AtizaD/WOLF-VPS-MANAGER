@@ -60,7 +60,7 @@ send_code_telegram() {
     fi
 
     # Check if there's a recent request from the same IP address
-    local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
+    last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
     # Adjust the time interval here (e.g., 600 for 10 minutes)
@@ -126,7 +126,6 @@ send_code_telegram
 # Prompt the user to enter the verification code
 echo -n -e "\033[1;33m  ENTER VERIFICATION CODE: \033[0m"
 read user_code
-last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
 
 # Compare the entered code with the last sent code
 if [[ -z "$user_code" || "$user_code" != "$last_sent_code" ]]; then
