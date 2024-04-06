@@ -77,14 +77,14 @@ send_code_telegram() {
         local seconds=$((time_left % 60))
 
         # Display the message with the remaining time
-        echo -e "\033[1;36m=================================================================================================================\033[0m"
-        echo -e "\033[1;31m  CODE SENT ALREADY! YOU HAVE $minutes MINUTES AND <span class="math-inline">seconds SECONDS LEFT TO REDEEM IT \\033\[0m"
-        echo \-e "\\033\[1;36m\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\\033\[0m"
+        echo -e "\033[1;36m======================================================================================\033[0m"
+        echo -e "\033[1;31m  CODE SENT ALREADY! YOU HAVE $minutes MINUTES AND $seconds SECONDS LEFT TO REDEEM IT \\033\[0m"
+        echo \-e "\\033\[1;36m\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\\033\[0m"
         echo ""
         echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
         echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
         echo "" 
-        echo \-e "\\033\[1;36m\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\\033\[0m"
+        echo \-e "\\033\[1;36m\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\=\\=\\033\[0m"
         echo ""
         return
     fi
@@ -127,7 +127,7 @@ clear
 send_code_telegram
 
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m  ENTER $last_sent VERIFIkATION CODE: \033[0m"
+echo -n -e "\033[1;33m  ENTER VERIFICATION CODE: \033[0m"
 read user_code
 last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/root/vcheck/storage.txt")
 
