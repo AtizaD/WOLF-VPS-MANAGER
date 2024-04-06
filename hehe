@@ -135,8 +135,8 @@ send_code_telegram() {
     fi
 
     # Check if there's a recent request from the same IP address
-    local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
-    local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
+     last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
+    last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
     # If there's a recent request and it's within the time window, reuse the code
     if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 600 ]]; then
