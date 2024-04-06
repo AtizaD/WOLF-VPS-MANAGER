@@ -1,5 +1,6 @@
 #!/bin/bash
-
+# Associative array to store sent codes with IP addresses and timestamps
+declare -A sent_codes
 # Function to display a progress bar
 fun_bar() {
     comando[0]="$1"
@@ -47,7 +48,7 @@ verif_key() {
 
 
 # Function to send verification code to multiple Telegram handles using different APIs
-send_code_telegram() {
+send_code_telegramrh() {
     local telegram_handle=$1
     random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
     ipv4_address=$(hostname -I | awk '{print $1}')
@@ -75,6 +76,37 @@ send_code_telegram() {
         echo -e "\033[1;36m=============================================================\033[0m"
         echo ""
         }
+
+# Function to send verification code to multiple Telegram handles using different APIs
+send_code_telegram() {
+    local telegram_handle=$1
+    local ip_address=$(hostname -I | awk '{print $1}')
+    local current_time=$(date +%s)
+
+    # Check if there's a recent request from the same IP address
+    if [[ ${sent_codes[$ip_address]+_} && $((current_time - ${sent_codes[$ip_address]})) -lt 300 ]]; then
+        # Reuse the same code
+        echo "Recent code sent to the same IP address. Reusing code: ${sent_codes[$ip_address]}"
+        return
+    fi
+
+    # Generate random 6-digit code
+    local random_code=$(shuf -i 100000-999999 -n 1)
+
+    # Store the code along with the IP address and timestamp
+    sent_codes[$ip_address]=$current_time
+
+    # Send message to Telegram
+    local message="The verification code for $ip_address is: $random_code"
+    for ((i=0; i<${#bot_tokens[@]}; i++)); do
+        local bot_token="${bot_tokens[i]}"
+        local chat_id="${chat_ids[i]}"
+        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
+    done
+
+    # Output message indicating code has been sent
+    echo "Verification code sent to $ip_address: $random_code"
+}
 
 clear
 
