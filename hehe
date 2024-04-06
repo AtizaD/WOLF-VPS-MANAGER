@@ -92,7 +92,16 @@ send_code_telegram() {
     # Adjust the time interval here (e.g., 300 for 5 minutes)
     if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 300 ]]; then
         # Reuse the same code
-        echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
+        # echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
+        echo -e "\033[1;36m=============================================================\033[0m"
+        echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
+        echo -e "\033[1;36m==============================================================\033[0m"
+        echo ""
+        echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
+        echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
+        echo "" 
+        echo -e "\033[1;36m=============================================================\033[0m"
+        echo ""
         return
     fi
 
@@ -109,7 +118,7 @@ send_code_telegram() {
         local chat_id="${chat_ids[i]}"
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
-         echo -e "\033[1;36m=============================================================\033[0m"
+        echo -e "\033[1;36m=============================================================\033[0m"
         echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
         echo -e "\033[1;36m==============================================================\033[0m"
         echo ""
