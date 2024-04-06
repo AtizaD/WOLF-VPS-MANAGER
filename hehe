@@ -122,12 +122,13 @@ clear
 }
 
 send_code_telegram
+last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m ENTERy VERIFICATION CODE: \033[0m"
+echo -n -e "\033[1;33m ENTER $last_sent VERIFICATION CODE: \033[0m"
 read user_code
-
+last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
 # Compare the entered code with the last sent code
-if [[ -z "$user_code" || "$user_code" != "$random_code" ]]; then
+if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
   echo ""
   echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
   echo ""
