@@ -118,59 +118,11 @@ done
         echo -e "\033[1;36m=============================================================\033[0m"
         echo ""
 }
-# Function to generate and send verification code
-send_code_telegram() {
-    local ip_address=$(hostname -I | awk '{print $1}')
-    local current_time=$(date +%s)
-    local storage_file="/root/vcheck/storage.txt"
-
-    # Check if the vcheck folder exists, if not create it
-    if [[ ! -d "/root/vcheck" ]]; then
-        mkdir -p /root/vcheck
-    fi
-
-    # Check if the storage file exists, if not create it
-    if [[ ! -f "$storage_file" ]]; then
-        touch "$storage_file"
-        chmod 777 "$storage_file"
-    fi
-
-    # Check if there's a recent request from the same IP address
-    local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
-    local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
-
-    # If there's a recent request and it's within the time window, reuse the code
-    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 600 ]]; then
-        echo "Reusing code: $last_sent_code"
-        # Return the last sent code and time
-        echo "$last_sent_code $last_sent_time"
-        return
-    fi
-
-    # Generate random 6-digit code
-    local random_code=$(shuf -i 100000-999999 -n 1)
-
-    # Store the code along with the IP address and timestamp
-    echo "$ip_address $random_code $current_time" > "$storage_file"
-
-    # Send message to Telegram
-    local message="The verification code for $ip_address is: $random_code"
-    for ((i=0; i<${#bot_tokens[@]}; i++)); do
-         bot_token="${bot_tokens[i]}"
-         chat_id="${chat_ids[i]}"
-        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
-    done
-
-    echo "Verification code sent to $ip_address: $random_code"
-    # Return the newly generated code and its timestamp
-    echo "$random_code $current_time"
-}
 
 ## Modify bot_tokens and chat_ids arrays as per your setup
 bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
 chat_ids=("1744391586" "1732839198")
 
-clear
 clear
 
 # Check for root privilege
