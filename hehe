@@ -129,9 +129,19 @@ clear
 # Call the function to send the verification code
 # Call the function to send the verification code
 send_code_telegram
+get_last_sent_code() {
+    local ip_address="$1"
+    local storage_file="/root/vcheck/storage.txt"
 
+    if [ -f "$storage_file" ]; then
+        last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
+        echo "$last_sent"
+    else
+        echo ""
+    fi
+}
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m ENTER VhERIFICATION CODE: \033[0m"
+echo -n -e "\033[1;33m ENTER VtERIFICATION CODE: \033[0m"
 read user_code
 
 # Retrieve the last sent code from the storage file
