@@ -43,6 +43,7 @@ verif_key() {
 }
 
 # Function to send verification code to multiple Telegram handles using different APIs
+# Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
     local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
@@ -83,11 +84,13 @@ send_code_telegram() {
         echo "" 
         echo -e "\033[1;36m=============================================================\033[0m"
         echo ""
+        # Return the last sent code and time
+        echo "$last_sent_code $last_sent_time"
         return
     fi
 
     # Generate random 6-digit code
-        random_code=$(shuf -i 100000-999999 -n 1)
+    random_code=$(shuf -i 100000-999999 -n 1)
 
     # Store the code along with the IP address and timestamp
     echo "$ip_address $random_code $current_time" > "$storage_file"
@@ -99,24 +102,24 @@ send_code_telegram() {
         local chat_id="${chat_ids[i]}"
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
         # Send message to Telegram with HTML formatting
-for ((i=0; i<${#bot_tokens[@]}; i++)); do
-    local bot_token="${bot_tokens[i]}"
-    local chat_id="${chat_ids[i]}"
-    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
-         -d "chat_id=$chat_id" \
-         -d "text=$message" \
-         -d "parse_mode=HTML" > /dev/null
-done
+        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
+             -d "chat_id=$chat_id" \
+             -d "text=$message" \
+             -d "parse_mode=HTML" > /dev/null
     done
-        echo -e "\033[1;36m=============================================================\033[0m"
-        echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
-        echo -e "\033[1;36m==============================================================\033[0m"
-        echo ""
-        echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
-        echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
-        echo "" 
-        echo -e "\033[1;36m=============================================================\033[0m"
-        echo ""
+
+    echo -e "\033[1;36m=============================================================\033[0m"
+    echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
+    echo -e "\033[1;36m==============================================================\033[0m"
+    echo ""
+    echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
+    echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
+    echo "" 
+    echo -e "\033[1;36m=============================================================\033[0m"
+    echo ""
+
+    # Return the newly generated code and its timestamp
+    echo "$random_code $current_time"
 }
 
 # Modify bot_tokens and chat_ids arrays as per your setup
@@ -133,7 +136,11 @@ clear
 }
 
 # Generate the verification code
-send_code_telegram
+last_sent_info=$(send_code_telegram)
+
+# Extract last sent code and time from the returned value
+last_sent_code=$(echo "$last_sent_info" | cut -d' ' -f1)
+last_sent_time=$(echo "$last_sent_info" | cut -d' ' -f2)
 
 # Prompt the user to enter the verification code
 echo -n -e "\033[1;33m  ENTER VERIFICATION CODE: \033[0m"
