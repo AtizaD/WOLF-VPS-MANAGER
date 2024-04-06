@@ -109,8 +109,8 @@ send_code_telegram() {
     echo ""
 }
 # Modify bot_tokens and chat_ids arrays as per your setup
-bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
-chat_ids=("1744391586" "1732839198")
+# bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
+# chat_ids=("1744391586" "1732839198")
 
 clear
 
@@ -130,9 +130,9 @@ last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
 # Debugging output
 echo "User code: $user_code"
 echo "Last sent code: $last_sent"
-
+echo "$random_code"
 # Compare the entered code with the last sent code
-if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
+if [[ -z "$user_code" || "$user_code" != "$random_code" ]]; then
     echo ""
     echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
     echo ""
