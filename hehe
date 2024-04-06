@@ -77,22 +77,32 @@ send_coded_telegramrh() {
         echo ""
         }
 # Associative array to store sent codes with IP addresses and timestamps
+# Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
     local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
     local storage_file="/root/vcheck/storage.txt"
 
+    # Check if the vcheck folder exists, if not create it
+    if [[ ! -d "/root/vcheck" ]]; then
+        mkdir -p /root/vcheck
+    fi
+
     # Check if the storage file exists, if not create it
-    [[ ! -f "$storage_file" ]] && touch "$storage_file"
+    if [[ ! -f "$storage_file" ]]; then
+        touch "$storage_file"
+        chmod 777 "$storage_file"
+    fi
 
     # Check if there's a recent request from the same IP address
     local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
-    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 60 ]]; then
+    # Adjust the time interval here (e.g., 300 for 5 minutes)
+    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 300 ]]; then
         # Reuse the same code
-        echo "code sent to the same IP address. Reusing code: $last_sent_code"
+        echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
         return
     fi
 
@@ -113,6 +123,10 @@ send_code_telegram() {
     # Output message indicating code has been sent
     echo "Verification code sent to $ip_address: $random_code"
 }
+
+# Modify bot_tokens and chat_ids arrays as per your setup
+bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
+chat_ids=("1744391586" "1732839198")
 
 clear
 
