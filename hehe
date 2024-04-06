@@ -156,8 +156,8 @@ send_code_telegram() {
     # Send message to Telegram
     local message="The verification code for $ip_address is: $random_code"
     for ((i=0; i<${#bot_tokens[@]}; i++)); do
-        local bot_token="${bot_tokens[i]}"
-        local chat_id="${chat_ids[i]}"
+         bot_token="${bot_tokens[i]}"
+         chat_id="${chat_ids[i]}"
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
 
