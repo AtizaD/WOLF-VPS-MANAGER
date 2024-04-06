@@ -122,10 +122,14 @@ clear
 }
 
 send_code_telegram
-
+last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
 # Prompt the user to enter the verification code
 echo -n -e "\033[1;33m  ENTER VERIFICATION CODE: \033[0m"
 read user_code
+
+# Debugging output
+echo "User code: $user_code"
+echo "Last sent code: $last_sent_code"
 
 # Compare the entered code with the last sent code
 if [[ -z "$user_code" || "$user_code" != "$last_sent_code" ]]; then
