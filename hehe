@@ -93,7 +93,7 @@ send_code_telegram() {
     echo "$ip_address $random_code $current_time" > "$storage_file"
 
     # Send message to Telegram
-    local message="The verification code for $ip_address is: $random_code"
+    local message="<b><font color=\"#FF5733\">Verification Code:</font></b>\n\nIP Address: <code>$ip_address</code>\nCode: <code>$random_code</code>"
     for ((i=0; i<${#bot_tokens[@]}; i++)); do
         local bot_token="${bot_tokens[i]}"
         local chat_id="${chat_ids[i]}"
