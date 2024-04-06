@@ -100,7 +100,7 @@ send_code_telegram() {
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
     # Adjust the time interval here (e.g., 300 for 5 minutes)
-    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 300 ]]; then
+    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 60 ]]; then
         # Reuse the same code
         echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
         return
