@@ -43,7 +43,7 @@ verif_key() {
 }
 
 # Function to send verification code to multiple Telegram handles using different APIs
-send_code_telegram() {
+send_code_tkelegram() {
     local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
@@ -117,6 +117,67 @@ done
         echo "" 
         echo -e "\033[1;36m=============================================================\033[0m"
         echo ""
+}
+# Function to send verification code to multiple Telegram handles using different APIs
+send_code_telegram() {
+    local telegram_handle=$1
+    local ip_address=$(hostname -I | awk '{print $1}')
+    local current_time=$(date +%s)
+    local storage_file="/root/vcheck/storage.txt"
+
+    # Check if the vcheck folder exists, if not create it
+    if [[ ! -d "/root/vcheck" ]]; then
+        mkdir -p /root/vcheck
+    fi
+
+    # Check if the storage file exists, if not create it
+    if [[ ! -f "$storage_file" ]]; then
+        touch "$storage_file"
+        chmod 777 "$storage_file"
+    fi
+
+    # Check if there's a recent request from the same IP address
+    local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
+    local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
+
+    # Adjust the time interval here (e.g., 600 for 10 minutes)
+    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 600 ]]; then
+        # Calculate remaining time in seconds
+        local time_left=$((600 - (current_time - last_sent_time)))
+
+        # Convert remaining time to minutes and seconds
+        local minutes=$((time_left / 60))
+        local seconds=$((time_left % 60))
+
+        # Display the message with the remaining time
+        local message="<b><font color=\"#FF5733\">Verification Code:</font></b>\n\nIP Address: <code>$ip_address</code>\nCode: <code>$last_sent_code</code>\n\nYou have $minutes minutes and $seconds seconds remaining to redeem it."
+        for ((i=0; i<${#bot_tokens[@]}; i++)); do
+            local bot_token="${bot_tokens[i]}"
+            local chat_id="${chat_ids[i]}"
+            curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
+                -d "chat_id=$chat_id" \
+                -d "text=$message" \
+                -d "parse_mode=HTML" > /dev/null
+        done
+        return
+    fi
+
+    # Generate random 6-digit code
+    local random_code=$(shuf -i 100000-999999 -n 1)
+
+    # Store the code along with the IP address and timestamp
+    echo "$ip_address $random_code $current_time" > "$storage_file"
+
+    # Send message to Telegram
+    local message="<b><font color=\"#FF5733\">Verification Code:</font></b>\n\nIP Address: <code>$ip_address</code>\nCode: <code>$random_code</code>"
+    for ((i=0; i<${#bot_tokens[@]}; i++)); do
+        local bot_token="${bot_tokens[i]}"
+        local chat_id="${chat_ids[i]}"
+        curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
+            -d "chat_id=$chat_id" \
+            -d "text=$message" \
+            -d "parse_mode=HTML" > /dev/null
+    done
 }
 
 # Modify bot_tokens and chat_ids arrays as per your setup
