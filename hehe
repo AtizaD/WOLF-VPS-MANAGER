@@ -69,7 +69,7 @@ send_code_telegram() {
         # Reuse the same code
         # echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
         echo -e "\033[1;36m=============================================================\033[0m"
-        echo -e "\033[1;31m       CODE SENT ALREADY YOU HAVE ONLY 5 MINUTES TO REDEEM IT \033[0m"
+        echo -e "\033[1;31m    CODE SENT ALREADY YOU HAVE ONLY 5 MINUTES TO REDEEM IT \033[0m"
         echo -e "\033[1;36m==============================================================\033[0m"
         echo ""
         echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
@@ -120,7 +120,7 @@ clear
 send_code_telegram
 
 # Prompt the user to enter the verification code
- echo -n -e "\033[1;33m     ENTER VERIFICATION CODE: \033[0m"
+ echo -n -e "\033[1;33m  ENTER VERIFICATION CODE: \033[0m"
  read user_code
 
 # Compare the entered code with the generated code
