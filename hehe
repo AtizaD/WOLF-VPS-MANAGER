@@ -66,15 +66,7 @@ send_coded_telegramrh() {
         # Send message to Telegram
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
-        echo -e "\033[1;36m=============================================================\033[0m"
-        echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
-        echo -e "\033[1;36m==============================================================\033[0m"
-        echo ""
-        echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
-        echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
-        echo "" 
-        echo -e "\033[1;36m=============================================================\033[0m"
-        echo ""
+       
         }
 # Associative array to store sent codes with IP addresses and timestamps
 # Function to send verification code to multiple Telegram handles using different APIs
@@ -100,7 +92,7 @@ send_code_telegram() {
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
     # Adjust the time interval here (e.g., 300 for 5 minutes)
-    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 60 ]]; then
+    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 300 ]]; then
         # Reuse the same code
         echo "Code sent to the same IP address within the last 5 minutes. Reusing code: $last_sent_code"
         return
@@ -119,9 +111,15 @@ send_code_telegram() {
         local chat_id="${chat_ids[i]}"
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
     done
-
-    # Output message indicating code has been sent
-    echo "Verification code sent to $ip_address: $random_code"
+         echo -e "\033[1;36m=============================================================\033[0m"
+        echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
+        echo -e "\033[1;36m==============================================================\033[0m"
+        echo ""
+        echo -e "\033[1;32m              @wolfbekk  \033[0m on Telegram"
+        echo -e "\033[1;32m              @helper_360\033[0m on Telegram"
+        echo "" 
+        echo -e "\033[1;36m=============================================================\033[0m"
+        echo ""
 }
 
 # Modify bot_tokens and chat_ids arrays as per your setup
