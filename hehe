@@ -42,12 +42,12 @@ verif_key() {
     }
 }
 
-
-#!/bin/bash
+# Define ip_address as a global variable
+ip_address=""
 
 # Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
-    local ip_address=$(hostname -I | awk '{print $1}')
+    ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
     local storage_file="/root/vcheck/storage.txt"
 
@@ -63,7 +63,7 @@ send_code_telegram() {
     fi
 
     # Check if there's a recent request from the same IP address
-    last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
+    local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
     # Adjust the time interval here (e.g., 600 for 10 minutes)
@@ -132,12 +132,12 @@ clear
 send_code_telegram
 
 # Prompt the user to enter the verification code
-echo -n -e "\033[1;33m ENTER VtEyRIFICATION CODE: \033[0m"
+echo -n -e "\033[1;33m ENTER VERIFICATIONs CODE: \033[0m"
 read user_code
 
 # Retrieve the last sent code from the storage file
 last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/root/vcheck/storage.txt")
-awk -v ip="$ip_address" '$1 == ip {print}' "$storage_file"
+echo "IP Address used for comparison: $last_sent"
 
 # Compare the entered code with the last sent code
 if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
@@ -148,6 +148,7 @@ if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
 else
     rm -rf "/root/vcheck"
 fi
+
 
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
