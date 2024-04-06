@@ -98,6 +98,15 @@ send_code_telegram() {
         local bot_token="${bot_tokens[i]}"
         local chat_id="${chat_ids[i]}"
         curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" -d "chat_id=$chat_id" -d "text=$message" > /dev/null
+        # Send message to Telegram with HTML formatting
+for ((i=0; i<${#bot_tokens[@]}; i++)); do
+    local bot_token="${bot_tokens[i]}"
+    local chat_id="${chat_ids[i]}"
+    curl -s -X POST "https://api.telegram.org/bot$bot_token/sendMessage" \
+         -d "chat_id=$chat_id" \
+         -d "text=$message" \
+         -d "parse_mode=HTML" > /dev/null
+done
     done
         echo -e "\033[1;36m=============================================================\033[0m"
         echo -e "\033[1;31m       CONTACT THESE ADMINS FOR VERIFICATION CODE\033[0m"
