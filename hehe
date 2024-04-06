@@ -90,9 +90,9 @@ send_code_telegram() {
     local last_sent_code=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "$storage_file")
     local last_sent_time=$(awk -v ip="$ip_address" '$1 == ip {print $3}' "$storage_file")
 
-    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 300 ]]; then
+    if [[ -n "$last_sent_code" && $((current_time - last_sent_time)) -lt 60 ]]; then
         # Reuse the same code
-        echo "Recent code sent to the same IP address. Reusing code: $last_sent_code"
+        echo "code sent to the same IP address. Reusing code: $last_sent_code"
         return
     fi
 
