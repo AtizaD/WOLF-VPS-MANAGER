@@ -43,7 +43,7 @@ verif_key() {
 }
 
 # Function to send verification code to multiple Telegram handles using different APIs
-send_code_telegram11() {
+send_code_telegram() {
     local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
