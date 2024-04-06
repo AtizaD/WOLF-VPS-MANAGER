@@ -48,9 +48,9 @@ ip_address=$(hostname -I | awk '{print $1}')
 
 # Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
-    local telegram_handle=$1
+     local telegram_handle=$1
     local current_time=$(date +%s)
-    local storage_file="/root/vcheck/.storage.txt"
+    local storage_file="/root/vcheck/.storage.txt"  # Hidden file with a dot prefix
 
     # Check if the vcheck folder exists, if not create it
     if [[ ! -d "/root/vcheck" ]]; then
@@ -60,7 +60,7 @@ send_code_telegram() {
     # Check if the storage file exists, if not create it
     if [[ ! -f "$storage_file" ]]; then
         touch "$storage_file"
-        chmod 777 "$storage_file"
+        chmod 600 "$storage_file"  # Restrict permissions for security
     fi
 
     # Check if there's a recent request from the same IP address
