@@ -44,7 +44,6 @@ verif_key() {
 
 # Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
-    local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
     local storage_file="/root/vcheck/storage.txt"
@@ -86,7 +85,7 @@ send_code_telegram() {
         return
     fi
 
-    # Generate random 6-digit code
+    # If there's no recent code or the time interval has passed, generate a new code
     random_code=$(shuf -i 100000-999999 -n 1)
 
     # Store the code along with the IP address and timestamp
