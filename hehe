@@ -125,7 +125,7 @@ send_code_telegram
 
 # Compare the entered code with the generated code
  if [[ "$user_code" != "$random_code" ]]; then
-    echo "Invalid code. Installation aborted."
+    echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
     exit 1
  fi
 
