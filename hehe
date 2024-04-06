@@ -79,33 +79,37 @@ send_coded_telegramrh() {
 # Associative array to store sent codes with IP addresses and timestamps
 declare -A sent_codes
 
+# Define the path to the storage file
+storage_file="/root/vcheck/verification_codes.txt"
+
+# Create the directory if it doesn't exist and set permissions
+mkdir -p /root/vcheck
+chmod 755 /root/vcheck
+
+# Create the storage file if it doesn't exist and set permissions
+if [[ ! -f "$storage_file" ]]; then
+    touch "$storage_file"
+    chmod 644 "$storage_file"
+fi
+
 # Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
     local telegram_handle=$1
     local ip_address=$(hostname -I | awk '{print $1}')
     local current_time=$(date +%s)
-    local storage_file="/path/to/storage.txt"  # Replace with your desired path
-
-    # Check if storage file exists, if not create it
-    if [[ ! -f "$storage_file" ]]; then
-        touch "$storage_file"
-    fi
 
     # Check if there's a recent request from the same IP address
-    local last_ip=$(awk -F '|' '$1==$ip_address {print $1}' ip_address="$ip_address" "$storage_file")
-    local last_timestamp=$(awk -F '|' '$1==$ip_address {print $2}' ip_address="$ip_address" "$storage_file")
-
-    if [[ "$last_ip" == "$ip_address" && $((current_time - last_timestamp)) -lt 300 ]]; then
+    if [[ ${sent_codes[$ip_address]+_} && $((current_time - ${sent_codes[$ip_address]})) -lt 300 ]]; then
         # Reuse the same code
-        echo "Recent code sent to the same IP address. Reusing code: $(awk -F '|' '$1==$ip_address {print $3}' ip_address="$ip_address" "$storage_file")"
+        echo "Recent code sent to the same IP address. Reusing code: ${sent_codes[$ip_address]}"
         return
     fi
 
     # Generate random 6-digit code
     local random_code=$(shuf -i 100000-999999 -n 1)
 
-    # Store the IP address, timestamp, and code in the storage file
-    echo "$ip_address|$current_time|$random_code" >> "$storage_file"
+    # Store the code along with the IP address and timestamp
+    sent_codes[$ip_address]=$current_time
 
     # Send message to Telegram
     local message="The verification code for $ip_address is: $random_code"
@@ -117,8 +121,10 @@ send_code_telegram() {
 
     # Output message indicating code has been sent
     echo "Verification code sent to $ip_address: $random_code"
-}
 
+    # Append the IP address, code, and timestamp to the storage file
+    echo "$ip_address|$random_code|$current_time" >> "$storage_file"
+}
 
 
 clear
