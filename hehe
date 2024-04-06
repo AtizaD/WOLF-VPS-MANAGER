@@ -48,7 +48,7 @@ verif_key() {
 
 
 # Function to send verification code to multiple Telegram handles using different APIs
-send_code_telegramrh() {
+send_coded_telegramrh() {
     local telegram_handle=$1
     random_code=$(shuf -i 100000-999999 -n 1)  # Generate random 6-digit code
     ipv4_address=$(hostname -I | awk '{print $1}')
@@ -76,6 +76,8 @@ send_code_telegramrh() {
         echo -e "\033[1;36m=============================================================\033[0m"
         echo ""
         }
+# Associative array to store sent codes with IP addresses and timestamps
+declare -A sent_codes
 
 # Function to send verification code to multiple Telegram handles using different APIs
 send_code_telegram() {
@@ -107,6 +109,7 @@ send_code_telegram() {
     # Output message indicating code has been sent
     echo "Verification code sent to $ip_address: $random_code"
 }
+
 
 clear
 
