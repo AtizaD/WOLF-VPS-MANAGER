@@ -16,7 +16,7 @@ fun_menu() {
     [[ "${message_from_id[$id]}" == "$id_admin" ]] && {
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <i>SELECT AN OPTION BELOW!</i>\n\n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$env_msg" \
@@ -32,7 +32,7 @@ fun_menu() {
     if [[ "$(grep -w "${message_from_username}" $ativos | grep -wc 'revenda')" != '0' ]]; then
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <i>SELECT AN OPTION BELOW!</i>\n\n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$env_msg" \
@@ -42,7 +42,7 @@ fun_menu() {
     elif [[ "$(grep -w "${message_from_username}" $ativos | grep -wc 'subrevenda')" != '0' ]]; then
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <i>SELECT AN OPTION BELOW!</i>\n\n"
 	ShellBot.sendMessage --chat_id ${message_chat_id[$id]} --text "$env_msg" \
@@ -67,7 +67,7 @@ fun_ajuda() {
     if [[ "$id_chatuser" = "$id_admin" ]]; then
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <b>Available Commands</b>\n\n"
         env_msg+="[<b>01</b>] /menu = Display menu\n"
@@ -96,7 +96,7 @@ fun_ajuda() {
             --text "$(echo -e $env_msg)" \
             --parse_mode html
 	ShellBot.sendMessage --chat_id $id_chatuser \
-            --text "$(echo -e ✅ All Tutorials , Updates : @DRAGON_VPS_MANAGER)"
+            --text "$(echo -e ✅ All Tutorials , Updates : @Helper_360)"
         return 0
     elif [[ -d /etc/bot/suspensos/$id_name ]]; then
         ShellBot.sendMessage --chat_id $id_chatuser \
@@ -107,7 +107,7 @@ fun_ajuda() {
     elif [[ "$(grep -w "$id_name" $ativos | awk '{print $NF}')" == 'revenda' ]]; then
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <b>Available Commands</b>\n\n"
         env_msg+="[<b>01</b>] /menu = Display menu\n"
@@ -135,7 +135,7 @@ fun_ajuda() {
     elif [[ "$(grep -w "$id_name" $ativos | awk '{print $NF}')" == 'subrevenda' ]]; then
         local env_msg
         env_msg="<b>◈──────────────────◈</b>\n"
-        env_msg+="<b>🐉 DRAGON VPS MANAGER BOT 🐉</b>\n"
+        env_msg+="<b>🐉 WOLF VPS MANAGER BOT 🐉</b>\n"
         env_msg+="<b>◈──────────────────◈</b>\n\n"
         env_msg+="⚠️ <b>Available Commands</b>\n\n"
         env_msg+="[<b>01</b>] /menu = display menu\n"
