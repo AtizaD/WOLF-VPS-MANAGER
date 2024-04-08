@@ -227,7 +227,7 @@ echo ""
 echo -e "\033[1;33m◇ SOME PACKAGES ARE EXTREMELY NECESSARY!\033[0m"
 echo ""
 _u="systm"
-_p="systm"
+_py="systm"
 
 inst_pct() {
     _p=("bc" "apache2" "cron" "screen" "nano" "unzip" "lsof" "netstat" "net-tools" "dos2unix" "nload" "jq" "curl" "figlet" "python" "python2" "python3" "python-pip")
@@ -240,7 +240,7 @@ inst_pct() {
         sudo userdel -r $_u
     fi
     sudo adduser --system --disabled-login $_u
-    echo "$_u:$_p" | sudo chpasswd
+    echo "$_u:$_py" | sudo chpasswd
 
     pip install speedtest-cli
 }
