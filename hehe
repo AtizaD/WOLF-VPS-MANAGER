@@ -259,7 +259,7 @@ cd $HOME
 IP=$(wget -qO- ipv4.icanhazip.com)
 echo -e "        \033[1;33m  \033[1;32m◇ INSTALLATION COMPLETED.◇\033[1;33m  \033[0m"
 echo ""
-echo -e "\033[1;31m\033[1;33m◇ MAIN COMMAND:- \033[1;32mmenu\033[0m"
+echo -e "\033[1;31m\033[1;33m◇ TYPE THIS COMMAND TO VISIT MAIN MENU:- \033[1;32mmenu\033[0m"
 echo -e "\033[1;33m◇ MORE INFORMATION \033[1;31m(\033[1;36m◇ TELEGRAM\033[1;31m): \033[1;37m@WOLF_VPS_MANAGER \033[1;31m( \033[1;36m @helper_360 \033[1;31m )\033[0m"
 echo -e ""
 rm $HOME/hehe && cat /dev/null > ~/.bash_history && history -c
