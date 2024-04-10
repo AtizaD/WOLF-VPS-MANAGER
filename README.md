@@ -3,7 +3,7 @@
 ㅤ
 <p align="left">
   <a href="" rel="noopener">
- <img width=550px height=550px src="https://github.com/januda-ui/januda-ui/blob/main/icons/photo_2021-12-01_07-36-12.jpg?raw=true?raw=true" alt="logo"></a>
+ <img width=550px height=550px src="https://www.dreamhost.com/blog/wp-content/uploads/2023/11/Shared-Hosting-vs-VPS-vs-Dedicated-Hosting.jpg?raw=true?raw=true" alt="logo"></a>
 </p>
 
 ##
