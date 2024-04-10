@@ -1,15 +1,14 @@
 ## ◇────── WOLF VPS MANAGER ───────◇
 
-ㅤ
+___REFERRAL LINK___
+
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=0c8d9b763684&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
+##
 <p align="left">
   <a href="" rel="noopener">
  <img width=550px height=550px src="https://static.vecteezy.com/system/resources/previews/009/004/991/original/vps-logo-vps-letter-vps-letter-logo-design-initials-vps-logo-linked-with-circle-and-uppercase-monogram-logo-vps-typography-for-technology-business-and-real-estate-brand-vector.jpg?raw=true?raw=true" alt="logo"></a>
 </p>
-
-##
-___REFERRAL LINK___
-
-[![DigitalOcean Referral Badge](https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg)](https://www.digitalocean.com/?refcode=0c8d9b763684&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
 
 ## ㅤ
 
