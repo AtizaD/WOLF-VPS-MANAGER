@@ -184,10 +184,7 @@ if [[ "$add_domain" == "Y" || "$add_domain" == "y" ]]; then
         # Validate domain name format
         if [[ $domain_name =~ ^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$ ]]; then
             # Display domain name for confirmation
-            echo -e "\033[1;33mYou entered the domain name: \033[1;32m$domain_name\033[0m"
-            
-            # Save domain name to file
-            echo "$domain_name" > /usr/share/domain          
+            echo -e "\033[1;33mYou entered the domain name: \033[1;32m$domain_name\033[0m"        
             break
         else
             ((domain_attempts++))
@@ -252,6 +249,8 @@ fun_attlist () {
     apt-get update -y
     [[ ! -d /usr/share/.hehe ]] && mkdir /usr/share/.hehe
     echo "crz: $(date)" > /usr/share/.hehe/.hehe
+      # Save domain name to file
+    echo "$domain_name" > /usr/share/.hehe/.domain  
 }
 fun_bar 'fun_attlist'
 clear
