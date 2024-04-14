@@ -187,7 +187,7 @@ if [[ "$add_domain" == "Y" || "$add_domain" == "y" ]]; then
             echo -e "\033[1;33mYou entered the domain name: \033[1;32m$domain_name\033[0m"
             
             # Save domain name to file
-            echo "$domain_name" > /usr/share/.hehe/domain          
+            echo "$domain_name" > /usr/share/domain          
             break
         else
             ((domain_attempts++))
