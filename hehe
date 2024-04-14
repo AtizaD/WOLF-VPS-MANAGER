@@ -250,7 +250,7 @@ fun_attlist () {
     [[ ! -d /usr/share/.hehe ]] && mkdir /usr/share/.hehe
     echo "crz: $(date)" > /usr/share/.hehe/.hehe
       # Save domain name to file
-    echo "$domain_name" > /usr/share/.hehe/.domain  
+    echo "$domain_name" > /etc/.domain  
 }
 fun_bar 'fun_attlist'
 clear
