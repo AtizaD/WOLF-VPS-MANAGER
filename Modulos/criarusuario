@@ -8,7 +8,7 @@ scor='\033[0m'
 if [[ -f /etc/.domain ]]; then
     Host=$(cat /etc/.domain)
 else
-    Host=$IP
+    Host="Your_domain_here"
 fi
 
 # Gerar client.ovpn
