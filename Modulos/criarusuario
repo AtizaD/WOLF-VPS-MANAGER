@@ -4,6 +4,13 @@ IP=$(cat /etc/IP)
 cor1='\033[41;1;37m'
 cor2='\033[44;1;37m'
 scor='\033[0m'
+
+if [[ -f /etc/.domain ]]; then
+    Host=$(cat /etc/.domain)
+else
+    Host=$IP
+fi
+
 # Gerar client.ovpn
 newclient() {
     cp /etc/openvpn/client-common.txt ~/$1.ovpn
@@ -396,7 +403,8 @@ echo "$username $sshlimiter" >>/root/usuarios.db
    
     echo -e "\033[1;37m◈─────⪧ SSH ACCOUNT ⪦─────◈"
     echo ""
-    echo -e "\033[1;32m◈ Host / IP   :⪧  \033[1;31m$IP"
+    echo -e "\033[1;32m◈ IP Adress  :⪧  \033[1;31m$IP"
+    echo -e "\033[1;32m◈ Host Name   :⪧  \033[1;31m$Host"
     echo -e "\033[1;32m◈ Username    :⪧  \033[1;31m$username"
     echo -e "\033[1;32m◈ Password    :⪧  \033[1;31m$password"
     echo -e "\033[1;32m◈ Login Limit :⪧  \033[1;31m$sshlimiter"
@@ -414,7 +422,8 @@ echo "$username $sshlimiter" >>/root/usuarios.db
     echo ""
     echo -e "\033[1;37m◈─────⪧ SSH ACCOUNT ⪦─────◈"
     echo ""
-    echo -e "\033[1;32m◈ Host / IP   :⪧  \033[1;31m$IP"
+    echo -e "\033[1;32m◈ IP Adress  :⪧  \033[1;31m$IP"
+    echo -e "\033[1;32m◈ Host Name   :⪧  \033[1;31m$Host"
     echo -e "\033[1;32m◈ Username    :⪧  \033[1;31m$username"
     echo -e "\033[1;32m◈ Password    :⪧  \033[1;31m$password"
     echo -e "\033[1;32m◈ Login Limit :⪧  \033[1;31m$sshlimiter"
