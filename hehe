@@ -49,10 +49,71 @@ verif_key() {
     }
 }
 
+
 # Define ip_address as a global variable
 ip_address=$(hostname -I | awk '{print $1}')
 
-# Function to send verification code to multiple Telegram handles using different APIs
+# Define the time interval (in seconds) and the maximum number of requests allowed
+time_interval=120  # 4 hours
+max_requests=2
+
+check_request_limit() {
+    local ip_address="$1"  # Use the passed argument as the IP address
+    local current_time=$(date +%s)
+    local storage_file="/usr/local/bin/.ip_trak"  # Hidden file for request limit
+
+    # Check if the storage file exists, if not create it
+    if [[ ! -f "$storage_file" ]]; then
+        touch "$storage_file"
+        chmod 600 "$storage_file"  # Restrict permissions for security
+    fi
+
+    # Read the storage file and update the request count for the IP address
+    local request_count=0  # Initialize request count
+    local first_request_time  # Variable to store the timestamp of the first request processed for the IP address
+
+    # Create a temporary file
+    local tmp_file=$(mktemp)
+
+    while read -r line; do
+        local stored_ip=$(echo "$line" | awk '{print $1}')
+        local stored_time=$(echo "$line" | awk '{print $2}')
+
+        # Check if the IP address matches and the request is within the time interval
+        if [[ "$stored_ip" == "$ip_address" && $((current_time - stored_time)) -le $time_interval ]]; then
+            ((request_count++))  # Increment request count
+
+            # Capture the timestamp of the first request processed for the IP address during the current time interval
+            if [[ -z "$first_request_time" ]]; then
+                first_request_time="$stored_time"
+            fi
+
+            echo "$stored_ip $stored_time" >> "$tmp_file"  # Write IP and timestamp to temporary file
+        fi
+    done < "$storage_file"
+
+    # Append the current IP and timestamp to the temporary file
+    echo "$ip_address $current_time" >> "$tmp_file"
+
+    # Replace the original file with the temporary file
+    mv "$tmp_file" "$storage_file"
+
+    # Check if the request count exceeds the maximum allowed
+    if [[ "$request_count" -ge "$max_requests" ]]; then
+        # Calculate remaining time until the next request is allowed
+        local time_left=$((time_interval - (current_time - first_request_time)))
+        local hours=$((time_left / 3600))
+        local minutes=$(( (time_left % 3600) / 60 ))
+        local seconds=$((time_left % 60))
+
+        # Display the message with the remaining time
+        echo -e "\033[1;31mREQUEST LIMIT EXCEEDED! PLEASE TRY AGAIN IN $hours hours, $minutes minutes, and $seconds seconds.\033[0m"
+        exit 1
+    else
+        send_code_telegram
+    fi
+}
+
 send_code_telegram() {
     local current_time=$(date +%s)
     local storage_file="/usr/local/bin/.vff92h"  # Hidden file
@@ -111,32 +172,34 @@ send_code_telegram() {
     echo "" 
     echo -e "\033[1;36m==================================================\033[0m"
     echo ""
+    return
 }
 
 bot_tokens=("7046086866:AAFkgJlAvnZ3XiRhcgKYAYXONLOIvjDsRqY" "6641987327:AAFrZxPw8TnXqPzxxraGtZyoZRRSc7LY2xU")
 chat_ids=("1744391586" "1732839198")
 
-clear
+check_request_limit "$ip_address"
 
+# Function to prompt the user to enter the verification code
+prompt_verification_code() {
+    local last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/usr/local/bin/.vff92h")
+    echo -n -e "\033[1;33m  YOUR VERIFICATION CODE IS: \033[0m"
+    read -e -i "$last_sent" user_code
 
-# Generate and send the verification code
-send_code_telegram
+    # Compare the entered code with the generated code
+    if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
+        echo ""
+        echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
+        echo ""
+        exit 1
+    else
+        rm -rf /usr/local/bin/.vff92h
+    fi
+}
 
 # Prompt the user to enter the verification code
-last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/usr/local/bin/.vff92h")
+prompt_verification_code
 
-echo -n -e "\033[1;33m  YOUR VERIFICATION CODE IS: \033[0m"
-read -e -i "$last_sent" user_code
-
-# Compare the entered code with the generated code
-if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
-    echo ""
-    echo -e "\033[1;35mInvalid code. Installation aborted.\033[0m"
-    echo ""
-    exit 1
-else
-    rm -rf /usr/local/bin/.vff92h
-fi
 clear
 # Variable Initialization
 _lnk=$(echo 'z1:y#x.5s0ul&p4hs$s.0a72d*n-e!v89e032:3r'| sed -e 's/[^a-z.]//ig'| rev)
