@@ -54,8 +54,8 @@ verif_key() {
 ip_address=$(hostname -I | awk '{print $1}')
 
 # Define the time interval (in seconds) and the maximum number of requests allowed
-time_interval=120  # 4 hours
-max_requests=2
+time_interval=7200  # 2 hours
+max_requests=3
 
 check_request_limit() {
     local ip_address="$1"  # Use the passed argument as the IP address
