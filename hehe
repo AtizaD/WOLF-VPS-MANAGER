@@ -112,7 +112,7 @@ check_request_limit() {
             local seconds=$((time_left % 60))
 
             # Display the remaining time
-            printf "          \033[1;36m%02d hours, %02d minutes, and %02d seconds\033[0m" "$hours" "$minutes" "$seconds"
+            printf "      \033[1;36m%02d hours, %02d minutes, and %02d seconds\033[0m" "$hours" "$minutes" "$seconds"
             
             # Wait for 1 second before updating the time left
             sleep 1
