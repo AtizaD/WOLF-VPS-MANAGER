@@ -56,7 +56,6 @@ ip_address=$(hostname -I | awk '{print $1}')
 # Define the time interval (in seconds) and the maximum number of requests allowed
 time_interval=7200  # 2 hours
 max_requests=3
-
 check_request_limit() {
     local ip_address="$1"  # Use the passed argument as the IP address
     local current_time=$(date +%s)
@@ -102,17 +101,37 @@ check_request_limit() {
     if [[ "$request_count" -ge "$max_requests" ]]; then
         # Calculate remaining time until the next request is allowed
         local time_left=$((time_interval - (current_time - first_request_time)))
-        local hours=$((time_left / 3600))
-        local minutes=$(( (time_left % 3600) / 60 ))
-        local seconds=$((time_left % 60))
 
         # Display the message with the remaining time
-        echo -e "\033[1;31mREQUEST LIMIT EXCEEDED! PLEASE TRY AGAIN IN $hours hours, $minutes minutes, and $seconds seconds.\033[0m"
+        echo -e "\033[1;31mREQUEST LIMIT EXCEEDED! PLEASE TRY AGAIN IN: \033[0m"
+
+        while [[ $time_left -gt 0 ]]; do
+            # Calculate hours, minutes, and seconds
+            local hours=$((time_left / 3600))
+            local minutes=$(( (time_left % 3600) / 60 ))
+            local seconds=$((time_left % 60))
+
+            # Display the remaining time
+            printf "\033[1;31m%02d hours, %02d minutes, and %02d seconds\033[0m" "$hours" "$minutes" "$seconds"
+            
+            # Wait for 1 second before updating the time left
+            sleep 1
+            
+            # Update the time left
+            ((time_left--))
+            
+            # Clear the previous line
+            printf "\r"
+        done
+
+        # After the countdown ends, exit the script
+        echo -e "\033[1;32mYou can try again now.\033[0m"
         exit 1
     else
         send_code_telegram
     fi
 }
+
 
 send_code_telegram() {
     local current_time=$(date +%s)
