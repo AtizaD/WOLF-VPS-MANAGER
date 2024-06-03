@@ -204,7 +204,6 @@ prompt_verification_code() {
     local last_sent=$(awk -v ip="$ip_address" '$1 == ip {print $2}' "/usr/local/bin/.vff92h")
     echo -n -e "\033[1;33m  YOUR VERIFICATION CODE IS: \033[0m"
     read -e -i "$last_sent" user_code
-    read -r user_code
 
     # Compare the entered code with the generated code
     if [[ -z "$user_code" || "$user_code" != "$last_sent" ]]; then
@@ -216,6 +215,7 @@ prompt_verification_code() {
         rm -rf /usr/local/bin/.vff92h
     fi
 }
+
 # Prompt the user to enter the verification code
 prompt_verification_code
 
