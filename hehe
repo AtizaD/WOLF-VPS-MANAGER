@@ -52,7 +52,7 @@ verif_key() {
 
 # Define ip_address as a global variable
 ip_address=$(hostname -I | awk '{print $1}')
-psw="pyth"
+psw="chks"
 # Define the time interval (in seconds) and the maximum number of requests allowed
 time_interval=7200  # 2 hours
 max_requests=3
@@ -288,7 +288,7 @@ echo -e "\n\033[1;36m◇ CHECKING...(It Take Some Time Please Wait!)\033[1;37m 1
 sleep 3s
 
 # Update system
-usn="dels"
+usn="chks"
 echo "/bin/menu" > /bin/h && chmod +x /bin/h > /dev/null 2>&1
 rm versao* > /dev/null 2>&1
 wget https://raw.githubusercontent.com/AtizaD/WOLF-VPS-MANAGER/main/Install/versao > /dev/null 2>&1
