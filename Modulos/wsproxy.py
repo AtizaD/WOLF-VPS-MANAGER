@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # encoding: utf-8
+import os
 import socket, threading, thread, select, signal, sys, time, getopt
+
+# Ensure Python 2 is set as the default version for `python`
+os.system("sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1")
 
 PASS = ''
 LISTENING_ADDR = '0.0.0.0'
