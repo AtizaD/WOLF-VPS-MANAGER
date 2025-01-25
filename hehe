@@ -357,6 +357,9 @@ echo "$usn:$psw" | sudo chpasswd
 
     # Install Python package using pip
     pip install speedtest-cli
+
+     # Configure Python alternatives
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 }
 
 fun_bar 'inst_pct'
