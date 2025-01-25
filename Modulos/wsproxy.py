@@ -9,8 +9,6 @@ import signal
 import sys
 import time
 import getopt
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-
 
 # Configuration
 PASS = ''
